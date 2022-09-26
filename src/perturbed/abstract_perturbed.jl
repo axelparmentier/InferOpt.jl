@@ -41,7 +41,8 @@ function compute_probability_distribution(
     Z_samples::Vector{<:AbstractArray{<:Real}};
     kwargs...,
 )
-    atoms = [perturb_and_optimize(perturbed, θ, Z; kwargs...) for Z in Z_samples]
+    # atoms = [perturb_and_optimize(perturbed, θ, Z; kwargs...) for Z in Z_samples]
+    atoms = ThreadsX.map(Z -> perturb_and_optimize(perturbed, θ, Z; kwargs...), Z_samples)
     weights = ones(length(atoms)) ./ length(atoms)
     probadist = FixedAtomsProbabilityDistribution(atoms, weights)
     return probadist

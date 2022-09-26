@@ -1,27 +1,27 @@
 module InferOpt
 
 using ChainRulesCore
-using FrankWolfe: FrankWolfe
-using FrankWolfe: ActiveSet, Adaptive, LinearMinimizationOracle
-using FrankWolfe: away_frank_wolfe, compute_extreme_point
 using Krylov: gmres
 using LinearAlgebra
 using LinearOperators: LinearOperator
 using Random: AbstractRNG, GLOBAL_RNG, MersenneTwister, rand, seed!
+using Requires
 using SimpleTraits: SimpleTraits
 using SimpleTraits: @traitdef, @traitfn, @traitimpl
 using SparseArrays
 using Statistics
 using StatsBase: StatsBase, sample
 using Test
+using ThreadsX
+
+function __init__()
+    @require FrankWolfe="f55ce6ea-fdc5-4628-88c5-0087fe54bd30" include("fw.jl")
+end
 
 include("utils/probability_distribution.jl")
 include("utils/pushforward.jl")
 
 include("interpolation/interpolation.jl")
-
-include("frank_wolfe/frank_wolfe_utils.jl")
-include("frank_wolfe/differentiable_frank_wolfe.jl")
 
 include("regularized/isregularized.jl")
 include("regularized/regularized_utils.jl")
