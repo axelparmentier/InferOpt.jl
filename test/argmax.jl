@@ -116,7 +116,9 @@ end
             one_hot_argmax;
             Ω=half_square_norm,
             Ω_grad=identity_kw,
-            frank_wolfe_kwargs=(; max_iteration=10, line_search=FrankWolfe.Agnostic()),
+            frank_wolfe_kwargs=(;
+                max_iteration=10, line_search=FrankWolfe.Adaptive(; relaxed_smoothness=true)
+            ),
         ),
         loss=mse_kw,
         error_function=hamming_distance,
@@ -198,7 +200,10 @@ end
                 one_hot_argmax;
                 Ω=half_square_norm,
                 Ω_grad=identity_kw,
-                frank_wolfe_kwargs=(; max_iteration=10, line_search=FrankWolfe.Agnostic()),
+                frank_wolfe_kwargs=(;
+                    max_iteration=10,
+                    line_search=FrankWolfe.Adaptive(; relaxed_smoothness=true),
+                ),
             ),
         ),
         error_function=hamming_distance,
@@ -263,7 +268,10 @@ end
                 one_hot_argmax;
                 Ω=half_square_norm,
                 Ω_grad=identity_kw,
-                frank_wolfe_kwargs=(; max_iteration=10, line_search=FrankWolfe.Agnostic()),
+                frank_wolfe_kwargs=(;
+                    max_iteration=10,
+                    line_search=FrankWolfe.Adaptive(; relaxed_smoothness=true),
+                ),
             ),
             cost,
         ),
